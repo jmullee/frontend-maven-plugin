@@ -1,5 +1,48 @@
 # frontend-maven-plugin
 
+# THIS FORK
+
+nodeVersion=provided :  just use the version that's already there
+
+```xml
+      <!-- mvn phase  6: #### generate-resources #### generate resources for inclusion in the package. -->
+      <plugin>
+        <groupId>com.github.eirslett</groupId>
+        <artifactId>frontend-maven-plugin</artifactId>
+        <version>1.7.6-SNAPSHOT</version>
+        <executions>
+          <execution>
+            <id>install-node-and-npm</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>install-node-and-npm</goal>
+            </goals>
+            <configuration>
+              <!--nodeVersion>v9.9.0</nodeVersion><npmVersion>6.4.1</npmVersion-->
+              <nodeVersion>provided</nodeVersion>
+              <npmVersion>provided</npmVersion>
+            </configuration>
+          </execution>
+          <execution>
+            <id>npm</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>grunt</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>grunt</goal>
+            </goals>
+            <configuration>
+              <arguments>--bsp-maven-build-finalName=${project.build.finalName}</arguments>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+...
+
 This plugin downloads/installs Node and NPM locally for your project, runs `npm install`, and then any combination of 
 [Bower](http://bower.io/), [Grunt](http://gruntjs.com/), [Gulp](http://gulpjs.com/), [Jspm](http://jspm.io), 
 [Karma](http://karma-runner.github.io/), or [Webpack](http://webpack.github.io/).
