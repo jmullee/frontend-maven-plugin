@@ -6,57 +6,65 @@
     <groupId>com.github.eirslett</groupId>
     <version>1.8.1-SNAPSHOT</version>
   </parent>
-
+  <properties>
+    <maven-compiler-plugin.version>2.3.2</maven-compiler-plugin.version>
+  </properties>
   <artifactId>frontend-maven-plugin</artifactId>
   <packaging>maven-plugin</packaging>
-
   <name>Maven Frontend Plugin</name>
   <prerequisites>
     <maven>3.1.0</maven>
   </prerequisites>
-
-  <description>
-        This Maven plugin lets you install Node/NPM locally
-        for your project, install dependencies with NPM,
-        install dependencies with bower or jspm, run Grunt or gulp tasks,
-        and/or run Karma tests.
-    </description>
-
+  <description>This Maven plugin lets you install Node/NPM locally
+    for your project, install dependencies with NPM,
+    install dependencies with bower or jspm, run Grunt or gulp tasks,
+    and/or run Karma tests.</description>
   <dependencies>
     <dependency>
       <groupId>com.github.eirslett</groupId>
       <artifactId>frontend-plugin-core</artifactId>
       <version>${project.parent.version}</version>
     </dependency>
-
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-core</artifactId>
       <version>3.1.0</version>
       <scope>provided</scope>
     </dependency>
-
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-plugin-api</artifactId>
       <version>3.5.0</version>
     </dependency>
-
     <dependency>
       <groupId>org.apache.maven.plugin-tools</groupId>
       <artifactId>maven-plugin-annotations</artifactId>
       <version>3.2</version>
     </dependency>
-
     <dependency>
       <groupId>org.sonatype.plexus</groupId>
       <artifactId>plexus-build-api</artifactId>
       <version>0.0.7</version>
     </dependency>
   </dependencies>
-
   <build>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven-compiler-plugin.version}</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+          <debug>true</debug>
+          <showDeprecation>false</showDeprecation>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <version>3.2</version>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-plugin-plugin</artifactId>
@@ -87,7 +95,6 @@
       </plugin>
     </plugins>
   </build>
-
   <profiles>
     <profile>
       <id>release</id>
@@ -125,7 +132,6 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-invoker-plugin</artifactId>
             <version>2.0.0</version>
-
             <configuration>
               <debug>true</debug>
               <projectsDirectory>src/it</projectsDirectory>
@@ -138,7 +144,6 @@
                 <repository.proxy.url>${repository.proxy.url}</repository.proxy.url>
               </filterProperties>
             </configuration>
-
             <executions>
               <execution>
                 <phase>integration-test</phase>
